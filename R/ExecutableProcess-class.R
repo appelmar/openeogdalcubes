@@ -13,7 +13,7 @@ ExecutableProcess <- R6Class(
 
     #' @description Initialize executable process
     #'
-    #' @param id Id or name of the proces
+    #' @param id Id or name of the process
     #' @param description Shortly what the process does
     #' @param parameters Used parameters in the process
     #' @param operation Function that executes the process
@@ -76,7 +76,7 @@ ExecutableProcess <- R6Class(
 
         }
         parameterList$job = self$job
-        result = invoke(self$operation, parameterList)
+        result = do.call(self$operation, parameterList) #invoke deprecated
         message("Result invoked in Executable Process")
 
         return(result)

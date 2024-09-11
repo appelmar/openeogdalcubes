@@ -24,14 +24,14 @@ SessionConfig = function(api.port = NULL, host = NULL, aws.ipv4 = NULL) {
   }
 
   default = list(
-    api_version = "1.0.0",
+    api_version = "1.2.0",
     backend_version = "0.1.0",
-    stac_version = "0.9.0",
+    stac_version = "1.0.0",
     stac_extensions = "datacube",
 
-    id = "openeo-gdalcubes-R-driver",
-    title = "openeo-gdalcubes-R-driver",
-    description = "This is an OpenEO compliant R driver interfacing with gdalcubes package and STAC API",
+    id = "openeo-gdalcubes-R-backend",
+    title = "openeo-gdalcubes-R-backend",
+    description = "This is an OpenEO compliant R backend interfacing with gdalcubes package and STAC API",
 
     links = NULL,
     demo.path = NULL,
@@ -70,19 +70,18 @@ SessionConfig = function(api.port = NULL, host = NULL, aws.ipv4 = NULL) {
       )
     ),
     inputFormats = list(
-      ImageCollection = list(
-        title = "ImageCollection",
-        description = "Import from image collection",
+      GTiff = list(
+        title = "GeoTiff",
+        description = "Geotiff is one of the most widely supported formats. This backend allows reading from Geotiff to create raster data cubes.",
         gis_data_types = list("raster"),
         parameters = list(
           format = list(
             type = "string",
-            description = "gdalcubes collection formats"
+            description = "GeoTiff"
           )
         )
-
       )
-    ),
+      ),
 
     OGC_conformanceLink = "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/core"
   )

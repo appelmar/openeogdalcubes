@@ -3,6 +3,7 @@
 #' @include Session-Class.R
 #' @include Router.R
 #' @include math-processes.R
+#' @include ml-processes.R
 #' @include processes.R
 #' @include api_job.R
 #' @include api_process_graphs.R
@@ -167,10 +168,10 @@ NULL
 
   if (class(format) == "list") {
     if (format$title == "Network Common Data Form") {
-      file = write_ncdf(job$results)
+      file = gdalcubes::write_ncdf(job$results)
     }
     else if (format$title == "GeoTiff") {
-      file = write_tif(job$results)
+      file = gdalcubes::write_tif(job$results)
     }
     else {
       throwError("FormatUnsupported")
@@ -178,10 +179,10 @@ NULL
   }
   else {
     if (format == "NetCDF") {
-      file = write_ncdf(job$results)
+      file = gdalcubes::write_ncdf(job$results)
     }
     else if (format == "GTiff") {
-      file = write_tif(job$results)
+      file = gdalcubes::write_tif(job$results)
     }
     else {
       throwError("FormatUnsupported")
@@ -291,17 +292,21 @@ addEndpoint = function() {
   Session$assignData(landsat_8_l1_c1)
 # assign processes
   Session$assignProcess(load_collection)
+  Session$assignProcess(load_stac)
   Session$assignProcess(save_result)
+  Session$assignProcess(aggregate_temporal_period)
+  Session$assignProcess(array_element)
+  Session$assignProcess(array_interpolate_linear)
   Session$assignProcess(filter_bands)
   Session$assignProcess(filter_bbox)
   Session$assignProcess(filter_spatial)
   Session$assignProcess(filter_temporal)
+  Session$assignProcess(merge_cubes)
+  Session$assignProcess(ndvi)
   Session$assignProcess(rename_dimension)
   Session$assignProcess(reduce_dimension)
-  Session$assignProcess(merge_cubes)
-  Session$assignProcess(array_element)
-  Session$assignProcess(ndvi)
   Session$assignProcess(rename_labels)
+  Session$assignProcess(resample_spatial)
   Session$assignProcess(run_udf)
   Session$assignProcess(min)
   Session$assignProcess(max)
@@ -311,5 +316,9 @@ addEndpoint = function() {
   Session$assignProcess(subtract)
   Session$assignProcess(multiply)
   Session$assignProcess(divide)
+  Session$assignProcess(evi)
+# assign ml processes
+  Session$assignProcess(ml_predict)
+
 
 }
